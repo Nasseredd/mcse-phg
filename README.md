@@ -1,4 +1,26 @@
-# SE-UP-Evaluations
+# Evaluating Multichannel Speech Enhancement Algorithms at the Phoneme Scale Across Genders
+
+**Authors:**  
+Nasser-Eddine Monir, Paul Magron, Romain Serizel  
+Université de Lorraine, Inria, CNRS, Loria, Multispeech Team  
+
+**Paper:**  
+[Evaluating Multichannel Speech Enhancement Algorithms at the Phoneme Scale Across Genders](https://doi.org/10.48550/arXiv.2506.18691)  
+*arXiv:2506.18691 [cs.SD]*  
+
+---
+
+### 🧠 Overview
+
+This repository contains the code and data preparation scripts used in our paper *“Evaluating Multichannel Speech Enhancement Algorithms at the Phoneme Scale Across Genders”*.  
+The study investigates how **gender and phonetic content** affect the performance of **multichannel speech enhancement (SE) algorithms**.  
+
+While most SE evaluations are done at the *utterance* level, this work provides a **phoneme-scale analysis** that reveals:
+- Subtle yet systematic **gender-specific spectral differences**,  
+- Strong **phoneme-dependent variations** in enhancement quality,  
+- Better interference reduction and fewer artifacts for **female speech**, especially for plosives, fricatives, and vowels.
+
+---
 
 ### Mixture Generation
 
@@ -129,116 +151,3 @@ In this study, we used speech recordings from 5 male and 5 female speakers to ge
 
 
 
-
-<!-- 
-
-Speech Enhancement Evaluations at the Utterance and Phoneme category levels
-
-```
-<project-resources>: /srv/storage/talc3@storage4.nancy.grid5000.fr/multispeech/calcul/users/nmonir/<project-resources>
-```
-
-
-1. **Setup and Configs**
-* Configs
-    * Add (or modify) a config file in "src/setup/configs" to setup the project
-    * Phoneme categories 
-* Setup the project 
-    ```shell 
-    python3 start_setup.py -c configs/config.json -n <project-name>
-    ```
-2. Data Collection
-    Purpose: Upload data in <project-resources>
-    - 2.1. Import clean speech: audios in `<project-resources>/clean` and transcriptions in `<project-resources>/transcriptions`
-    - 2.2. Import Babble Noise and 5-10 Speech audios to create the speech shaped noise. Note that the speech audios must be approx. half male and half female.
-    - 2.3. Import (or Compute) Room Impulse Responses
-3. Data Preparation
-    - 3.1. Create speech shaped noise from 5-10 downloaded speech files and export to `<project-resources>/noise/speech-shaped-noise`
-        ```shell
-            python3 src/data_preparation/noise/speech_shaped_noise.py
-        ```
-    - 3.2. Create white noise and export to `<project-resources>/noise/white-noise`.
-        ```shell
-        python3 src/data_preparation/noise/white_noise.py
-        ```
-    - 3.3. Create mixtures (and reverberated speech and noise) from speech and noise audios.
-        * For a single scenario : 
-            ```shell
-                python3 src/data_preparation/mixture/mixtures.py --experiment_name <EXPERIMENT_NAME> --scenario <SCENARIO> --noise_type <NOISE_TYPE>
-            ```
-        * For multiple scenarios : 
-            ```shell
-                source scripts/mixtures/mixture-jobs.sh grvingt psamsea
-            ```
---TODO
-    3.4. Phoneme Segmentation using MFA
-    3.5. Convert the TextGrid file to a JSON file to achieve a better-organized structure for phoneme segmentations.
-
-4. Inference 
-    * Inference using MVDR 
-        ```shell
-        conda activate espnet-se-venv
-        ```
-        ```shell
-        python3 src/models/mvdr-espnet/mvdr_espnet_multiple.py -e <experiment-name> -s <scenario-tag> -n <noise-type>
-        ```
-        Example 
-        ```shell
-        python3 src/models/mvdr-espnet/mvdr_espnet_multiple.py -e psamsea -s 0dBS0N45 -n speech-shaped-noise
-        ```
-    * Inference using FaSNet
-        ```shell
-        conda activate espnet-se-venv
-        ```
-        ```shell
-        python3 src/models/fasnet-espnet/fasnet_espnet_multiple.py -e <experiment-name> -s <scenario-tag> -n <noise-type>
-        ```
-        Example 
-        ```shell
-        python3 src/models/fasnet-espnet/fasnet_espnet_multiple.py -e psamsea -s 0dBS0N45 -n speech-shaped-noise
-        ```
-    * Inference using Tango
-        ```shell
-        conda activate tango
-        ```
-        ```shell
-        python3 src/models/tango/tango_multiple.py -e <experiment-name> -s <scenario-tag> -n <noise-type>
-        ```
-        Example 
-        ```shell
-        python3 src/models/tango/tango_multiple.py -e psamsea -s 0dBS0N45 -n speech-shaped-noise
-        ```
-    * All Model's Experiments
-        ```shell
-        source scripts/models/run_model.sh <EXP_NAME> <SCENARIO> <MODEL> <NOISE_TYPE>
-        ```
-    * Jobs
-        ```shell
-        cd logs/models/tango
-        source scripts/models/model_jobs.sh  <CLUSTER> <EXP_NAME> <MODEL> <NOISE_TYPE>
-        ```
-        ```shell
-        source scripts/models/model_jobs.sh grvingt psamsea mvdr speech-shaped-noise
-        ```
-
-5. Evaluation
-    * Utterance level evaluation 
-        * Evaluation
-            ```shell
-            python3 src/evaluation/utterance_evaluation.py -e <EXPERIMENT_NAME> -n <NOISE_TYPE> -s <SCENARIO> -m <MODEL>
-            ```
-
-        * Jobs
-            ```shell
-            source scripts/evaluation/evaluation_job.sh <CLUSTER> <EXPERIMENT_NAME>
-            ```
-    * Phoneme level evaluation
-        * Evaluation
-            ```shell
-            python3 src/evaluation/utterance_evaluation.py -e <EXPERIMENT_NAME> -n <NOISE_TYPE> -s <SCENARIO> -m <MODEL>
-            ```
-
-        * Jobs
-            ```shell
-            source scripts/evaluation/evaluation_job.sh <CLUSTER> <EXPERIMENT_NAME>
-            ``` -->

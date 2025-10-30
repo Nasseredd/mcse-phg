@@ -10,7 +10,7 @@ Université de Lorraine, Inria, CNRS, Loria, Multispeech Team
 
 ---
 
-### 🧠 Overview
+### Overview
 
 This repository contains the code and data preparation scripts used in our paper *“Evaluating Multichannel Speech Enhancement Algorithms at the Phoneme Scale Across Genders”*.  
 The study investigates how **gender and phonetic content** affect the performance of **multichannel speech enhancement (SE) algorithms**.  
